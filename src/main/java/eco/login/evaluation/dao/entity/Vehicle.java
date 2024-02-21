@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -25,6 +25,6 @@ public class Vehicle implements Serializable {
     @Basic @Enumerated(EnumType.ORDINAL) @Column(name = "VHCL_TYPE_KY")
     private VehicleType vehicleType;
 
-    @OneToMany(mappedBy = "VHCL_TLMTRY", cascade = CascadeType.ALL) private List<VehicleTelemetry> vehicleTelemetries;
+    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL) private List<VehicleTelemetry> vehicleTelemetries;
 
 }

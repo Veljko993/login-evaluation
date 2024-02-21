@@ -4,7 +4,7 @@ import eco.login.evaluation.common.TelemetryPropertyType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
