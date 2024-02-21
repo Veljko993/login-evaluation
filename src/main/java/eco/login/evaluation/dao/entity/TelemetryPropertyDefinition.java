@@ -7,6 +7,11 @@ import lombok.Data;
 import jakarta.persistence.*;
 import java.io.Serializable;
 
+/**
+ * @author vantonijevic
+ *
+ * Entity used for storing definition of all *allowed* properties
+ */
 @Entity
 @Table(name = "TLMTRY_PROP_DEFN")
 @Data

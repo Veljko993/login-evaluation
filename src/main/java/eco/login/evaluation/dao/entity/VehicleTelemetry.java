@@ -8,6 +8,11 @@ import lombok.Data;
 import jakarta.persistence.*;
 import java.io.Serializable;
 
+/**
+ * @author vantonijevic
+ *
+ * Entity used for storing telemetry data. May be modified in the future.
+ */
 @Entity
 @Table(name = "VHCL_TLMTRY")
 @AllArgsConstructor
@@ -24,9 +29,6 @@ public class VehicleTelemetry implements Serializable {
     @JoinColumn(name = "VHCL_KY")
     @JsonIgnore
     private Vehicle vehicle;
-    //DateTime
-    //Vehicle - serial num
-    //GPS long
-    //GPS lat
-    //total work hours
+
+    //TODO Think if you will store these properties directly or in prop table: DateTime, GPS long, GPS lat, total work hours
 }

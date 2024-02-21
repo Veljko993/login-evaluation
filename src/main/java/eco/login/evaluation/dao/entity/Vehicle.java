@@ -9,6 +9,11 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * @author vantonijevic
+ *
+ * Entity used for storing vehicle data
+ */
 @Entity
 @Table(name="VHCL")
 @Data

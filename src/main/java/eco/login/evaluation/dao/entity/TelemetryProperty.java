@@ -9,6 +9,12 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ *
+ * @author vantonijevic
+ *
+ * Entity used for storing *one* telemetry property.
+ */
 @Entity
 @Table(name = "TLMTRY_PROP")
 @Data
