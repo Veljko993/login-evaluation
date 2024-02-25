@@ -1,16 +1,16 @@
 package eco.login.evaluation.dao.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
-import jakarta.persistence.*;
 import java.io.Serializable;
 
 /**
  * @author vantonijevic
- *
+ * <p>
  * Entity used for storing telemetry data. May be modified in the future.
  */
 @Entity
