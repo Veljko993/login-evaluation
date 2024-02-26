@@ -1,7 +1,6 @@
 package eco.login.evaluation.validation;
 
 import eco.login.evaluation.FilterDataDto;
-import eco.login.evaluation.ValidOperation;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

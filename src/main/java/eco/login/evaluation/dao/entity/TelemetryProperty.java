@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Timestamp;
 
 /**
  * @author vantonijevic
@@ -38,7 +38,7 @@ public class TelemetryProperty implements Serializable {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "TLMTRY_PROP_VALU_TS")
-    private Date telemetryPropertyValueDate;
+    private Timestamp telemetryPropertyValueDate;
 
     @Column(name = "TLMTRY_PROP_VALU_FG")
     private Boolean telemetryPropertyValueFlag;

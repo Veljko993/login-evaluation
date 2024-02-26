@@ -1,6 +1,5 @@
-package eco.login.evaluation;
+package eco.login.evaluation.validation;
 
-import eco.login.evaluation.validation.OperationValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 

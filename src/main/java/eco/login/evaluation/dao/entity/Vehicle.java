@@ -22,10 +22,8 @@ import java.util.List;
 public class Vehicle implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "VHCL_KEY_GENERATOR", sequenceName = "SEQ_VHCL", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "VHCL_KEY_GENERATOR")
     @Column(name = "VHCL_KY")
-    private Long vehicleKey;
+    private String vehicleKey;
 
     @Basic
     @Enumerated(EnumType.ORDINAL)

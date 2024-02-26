@@ -31,7 +31,7 @@ public enum TelemetryPropertyType implements Serializable {
             case TEXT -> StringUtils.isEmpty(value);
             default -> throw new UnsupportedValueException(value);
         }
-        if(!valid){
+        if (!valid) {
             throw new UnsupportedValueException(this, value);
         }
     }
