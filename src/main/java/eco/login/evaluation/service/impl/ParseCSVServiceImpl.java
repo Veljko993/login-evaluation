@@ -14,8 +14,6 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 public class ParseCSVServiceImpl implements ParseCSVService {
-
-
     @Override
     public List<TractorData> parseTractorData(List<TractorDataCSV> csvData) {
         return csvData.parallelStream().map(TractorData::convert).collect(Collectors.toList());

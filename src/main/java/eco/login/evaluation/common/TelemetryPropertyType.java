@@ -15,6 +15,8 @@ public enum TelemetryPropertyType implements Serializable {
     TEXT, DATE, INT, DOUBLE, BOOLEAN;
     //Add supported operations for each of the enums
 
+
+
     public void validateValue(String value) throws UnsupportedValueException {
         boolean valid = false;
         switch (this) {

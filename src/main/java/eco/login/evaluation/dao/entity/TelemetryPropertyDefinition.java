@@ -4,6 +4,7 @@ import eco.login.evaluation.common.TelemetryPropertyType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -16,6 +17,7 @@ import java.io.Serializable;
 @Table(name = "TLMTRY_PROP_DEFN")
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class TelemetryPropertyDefinition implements Serializable {
 
     @Id
@@ -25,7 +27,7 @@ public class TelemetryPropertyDefinition implements Serializable {
     private String telemetryPropertyName;
     @Basic
     @Enumerated(EnumType.ORDINAL)
-    @Column(name = "TLMTRY_PROP_TYPE_KY")
+    @Column(name = "TLMTRY_PROP_TYPE")
     private TelemetryPropertyType telemetryPropertyType;
 
 }

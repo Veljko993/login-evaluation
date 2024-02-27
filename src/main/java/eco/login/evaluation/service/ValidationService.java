@@ -8,7 +8,6 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface ValidationService {
 
-
     void validateFile(MultipartFile file) throws ValidationException;
 
 }
