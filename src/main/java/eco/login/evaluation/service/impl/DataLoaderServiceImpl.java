@@ -1,8 +1,11 @@
 package eco.login.evaluation.service.impl;
 
+import com.fasterxml.jackson.databind.MappingIterator;
+import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
+import com.opencsv.exceptions.CsvException;
 import eco.login.evaluation.exception.FileReadingException;
 import eco.login.evaluation.exception.ValidationException;
 import eco.login.evaluation.model.CombineData;
@@ -12,13 +15,18 @@ import eco.login.evaluation.model.TractorDataCSV;
 import eco.login.evaluation.service.DataLoaderService;
 import eco.login.evaluation.service.ParseCSVService;
 import eco.login.evaluation.service.TelemetryService;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Reader;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -53,27 +61,15 @@ public class DataLoaderServiceImpl implements DataLoaderService {
     }
 
     private int processTractorData(MultipartFile file) throws FileReadingException, ValidationException {
-        List<TractorDataCSV> csvData = readData(file, TractorDataCSV.class);
+        List<TractorDataCSV> csvData = parseService.parseTractorCSV(file);
         List<TractorData> parsedData = parseService.parseTractorData(csvData);
         return telemetryService.saveTractorData(parsedData);
     }
 
     private int processCombineData(MultipartFile file) throws FileReadingException, ValidationException {
-        List<CombineDataCSV> csvData = readData(file, CombineDataCSV.class);
+        List<CombineDataCSV> csvData = parseService.parseCombineCSV(file);
         List<CombineData> parsedData = parseService.parseCombineData(csvData);
         return telemetryService.saveCombineData(parsedData);
     }
 
-    private <T> List<T> readData(MultipartFile file, Class<T> type) throws FileReadingException {
-        try (CSVReader csvReader = new CSVReader(new InputStreamReader(file.getInputStream()))) {
-            CsvToBean<T> csvToBean = new CsvToBeanBuilder<T>(csvReader)
-                    .withType(type)
-                    .withSeparator(';')
-                    .withIgnoreLeadingWhiteSpace(true)
-                    .build();
-            return csvToBean.parse();
-        } catch (Exception e) {
-            throw new FileReadingException("Failed reading and parsing data from file (for type - " + type + ") with message: " + e.getMessage(), e);
-        }
-    }
 }

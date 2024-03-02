@@ -53,5 +53,5 @@
 53, INT, CurrentGearShift
 54, INT, ParkingBrakeState
 55, BOOLEAN, TransverseDifferentialLockStatus
-56, BOOLEAN, AllWheelDriveStatus
+56, TEXT, AllWheelDriveStatus
 57, BOOLEAN, ActualStatusOfCreeper

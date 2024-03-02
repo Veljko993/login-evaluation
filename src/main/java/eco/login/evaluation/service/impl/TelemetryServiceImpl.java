@@ -68,14 +68,14 @@ public class TelemetryServiceImpl implements TelemetryService {
         propertyDefinitionService.addIntProperty(properties, PARKING_BRAKE_STATE, data.getParkingBrakeState(), telemetry);
         propertyDefinitionService.addBooleanProperty(properties, ACTUAL_STATUS_OF_CREEPER, data.getActualStatOfCreep(), telemetry);
         propertyDefinitionService.addBooleanProperty(properties, TRANSVERSE_DIFFERENTIAL_LOCK_STATUS, data.getTransDiffLockStat(), telemetry);
-        propertyDefinitionService.addBooleanProperty(properties, ALL_WHEEL_DRIVE_STATUS, data.getAllWheelDriveStat(), telemetry);
+        propertyDefinitionService.addTextProperty(properties, ALL_WHEEL_DRIVE_STATUS, data.getAllWheelDriveStat(), telemetry);
         return properties;
     }
 
     @Override
     public int saveCombineData(List<CombineData> parsedData) throws ValidationException {
         String serialNum = parsedData.get(0).getSerialNumber();
-        Vehicle vehicle = vehicleDao.findById(serialNum).orElse(new Vehicle(serialNum, VehicleType.TRACTOR, new ArrayList<>()));
+        Vehicle vehicle = vehicleDao.findById(serialNum).orElse(new Vehicle(serialNum, VehicleType.COMBINE, new ArrayList<>()));
         int counter = 0;
         for (CombineData data : parsedData) {
             if (serialNum.equals(data.getSerialNumber())) {

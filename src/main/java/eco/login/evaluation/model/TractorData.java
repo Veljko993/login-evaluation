@@ -31,7 +31,7 @@ public class TractorData {
     Integer currentGearShift;
     Integer parkingBrakeState;
     Boolean transDiffLockStat;
-    Boolean allWheelDriveStat;
+    String allWheelDriveStat;//TODO It has values Active, Inactive and 2, so not sure what is expected here. For now, I'll leave it whatever it is, and check with someone with domain knowledge
     Boolean actualStatOfCreep;
 
     public static TractorData convert(TractorDataCSV data) {
@@ -55,10 +55,10 @@ public class TractorData {
                     .currentGearShift(parseInt(data.getCurrentGearShift()))
                     .parkingBrakeState(parseInt(data.getParkingBrakeState()))
                     .transDiffLockStat(parseBoolean(data.getTransDiffLockStat()))
-                    .allWheelDriveStat(parseBoolean(data.getAllWheelDriveStat()))
+                    .allWheelDriveStat(data.getAllWheelDriveStat())
                     .actualStatOfCreep(parseBoolean(data.getActualStatOfCreep()))
                     .build();
-        } catch (ValidationException e) {
+        } catch (ValidationException | NumberFormatException e) {
             log.error("Parsing failed due to: " + e.getMessage());
             tractorData = null;
         }
