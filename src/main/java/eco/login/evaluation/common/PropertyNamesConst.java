@@ -1,5 +1,8 @@
 package eco.login.evaluation.common;
 
+/**
+ * Names of properties in the database
+ */
 public class PropertyNamesConst {
     public static final String TIMESTAMP = "Timestamp";
     public static final String SERIAL_NUMBER = "SerialNumber";

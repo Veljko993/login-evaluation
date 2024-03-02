@@ -9,6 +9,9 @@ import java.sql.Timestamp;
 
 import static eco.login.evaluation.common.ParseUtil.*;
 
+/**
+ * Model for Combine data
+ */
 @Builder
 @Data
 @Slf4j
@@ -57,6 +60,12 @@ public class CombineData {
     Boolean autoPilotStat;
     Boolean chopper;
 
+    /**
+     * Method for converting all string object, into a specific CombineData object
+     *
+     * @param data - object containing all fields as strings
+     * @return converted object if successful, otherwise null
+     */
     public static CombineData convert(CombineDataCSV data) {
         CombineData combineData;
         try {

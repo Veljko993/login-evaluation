@@ -1,6 +1,11 @@
 package eco.login.evaluation.common;
 
-public class CSVNamesConst {
+/**
+ * Class used for storing CSV Headers for all types of vehicles
+ *
+ * @author vantonijevic
+ */
+public class CSVHeaderConst {
 
     public static final String TIMESTAMP = "\uFEFFDate/Time";
     public static final String SERIAL_NUMBER = "Serial number";

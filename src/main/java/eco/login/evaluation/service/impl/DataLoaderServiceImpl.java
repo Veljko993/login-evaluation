@@ -1,11 +1,5 @@
 package eco.login.evaluation.service.impl;
 
-import com.fasterxml.jackson.databind.MappingIterator;
-import com.fasterxml.jackson.dataformat.csv.CsvMapper;
-import com.opencsv.CSVReader;
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
-import com.opencsv.exceptions.CsvException;
 import eco.login.evaluation.exception.FileReadingException;
 import eco.login.evaluation.exception.ValidationException;
 import eco.login.evaluation.model.CombineData;
@@ -15,18 +9,11 @@ import eco.login.evaluation.model.TractorDataCSV;
 import eco.login.evaluation.service.DataLoaderService;
 import eco.login.evaluation.service.ParseCSVService;
 import eco.login.evaluation.service.TelemetryService;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

@@ -17,10 +17,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
-import static eco.login.evaluation.common.CSVNamesConst.*;
+import static eco.login.evaluation.common.CSVHeaderConst.*;
 
 @Service
 @Slf4j
@@ -32,9 +30,9 @@ public class ParseCSVServiceImpl implements ParseCSVService {
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());*/
         List<TractorData> data = new ArrayList<>();
-        for(TractorDataCSV csv : csvData){
+        for (TractorDataCSV csv : csvData) {
             TractorData converted = TractorData.convert(csv);
-            if(converted!=null) {
+            if (converted != null) {
                 data.add(converted);
             }
         }
@@ -44,9 +42,9 @@ public class ParseCSVServiceImpl implements ParseCSVService {
     @Override
     public List<CombineData> parseCombineData(List<CombineDataCSV> csvData) {
         List<CombineData> data = new ArrayList<>();
-        for(CombineDataCSV csv : csvData){
+        for (CombineDataCSV csv : csvData) {
             CombineData converted = CombineData.convert(csv);
-            if(converted!=null) {
+            if (converted != null) {
                 data.add(converted);
             }
         }

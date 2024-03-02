@@ -8,6 +8,11 @@ import java.util.List;
 
 import static eco.login.evaluation.common.TelemetryPropertyType.*;
 
+/**
+ * Enum used for storing supported operations, and validating which field supports which operation.
+ *
+ * @author vantonijevic
+ */
 @Getter
 public enum Operation {
     EQUALS("equals", TEXT, DATE, INT, DOUBLE, BOOLEAN), //

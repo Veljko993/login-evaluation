@@ -2,7 +2,9 @@ package eco.login.evaluation.model;
 
 import lombok.Builder;
 import lombok.Data;
-
+/**
+ * All string Tractor data, used for reading from CSV
+ */
 @Builder
 @Data
 public class TractorDataCSV {

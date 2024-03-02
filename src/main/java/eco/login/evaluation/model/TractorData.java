@@ -9,6 +9,9 @@ import java.sql.Timestamp;
 
 import static eco.login.evaluation.common.ParseUtil.*;
 
+/**
+ * Model for Tractor data
+ */
 @Builder
 @Data
 @Slf4j
@@ -34,6 +37,12 @@ public class TractorData {
     String allWheelDriveStat;//TODO It has values Active, Inactive and 2, so not sure what is expected here. For now, I'll leave it whatever it is, and check with someone with domain knowledge
     Boolean actualStatOfCreep;
 
+    /**
+     * Method for converting all string object, into a specific Tractor object
+     *
+     * @param data - object containing all fields as strings
+     * @return converted object if successful, otherwise null
+     */
     public static TractorData convert(TractorDataCSV data) {
         TractorData tractorData;
         try {

@@ -6,14 +6,57 @@ import eco.login.evaluation.dao.entity.VehicleTelemetry;
 import java.sql.Timestamp;
 import java.util.List;
 
+/**
+ * Service used for preparing properties for saving into DB
+ */
 public interface PropertyDefinitionService {
+    /**
+     * Adding the property to the relevant object in the expected format
+     *
+     * @param properties   - list of properties where the property will be added
+     * @param propertyName
+     * @param value
+     * @param telemetry    - parent object
+     */
     void addTextProperty(List<TelemetryProperty> properties, String propertyName, String value, VehicleTelemetry telemetry);
 
+    /**
+     * Adding the property to the relevant object in the expected format
+     *
+     * @param properties   - list of properties where the property will be added
+     * @param propertyName
+     * @param value
+     * @param telemetry    - parent object
+     */
     void addDateProperty(List<TelemetryProperty> properties, String propertyName, Timestamp value, VehicleTelemetry telemetry);
 
+    /**
+     * Adding the property to the relevant object in the expected format
+     *
+     * @param properties   - list of properties where the property will be added
+     * @param propertyName
+     * @param value
+     * @param telemetry    - parent object
+     */
     void addIntProperty(List<TelemetryProperty> properties, String propertyName, Integer value, VehicleTelemetry telemetry);
 
+    /**
+     * Adding the property to the relevant object in the expected format
+     *
+     * @param properties   - list of properties where the property will be added
+     * @param propertyName
+     * @param value
+     * @param telemetry    - parent object
+     */
     void addBooleanProperty(List<TelemetryProperty> properties, String propertyName, Boolean value, VehicleTelemetry telemetry);
 
+    /**
+     * Adding the property to the relevant object in the expected format
+     *
+     * @param properties   - list of properties where the property will be added
+     * @param propertyName
+     * @param value
+     * @param telemetry    - parent object
+     */
     void addDoubleProperty(List<TelemetryProperty> properties, String propertyName, Double value, VehicleTelemetry telemetry);
 }

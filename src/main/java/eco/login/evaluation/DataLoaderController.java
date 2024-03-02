@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * Controller for loading the data into the system
+ */
 @Slf4j
 @RestController
 public class DataLoaderController {
@@ -23,6 +26,12 @@ public class DataLoaderController {
         this.dataLoaderService = dataLoaderService;
     }
 
+    /**
+     * Endpoint for uploading the CSV file into the system. It needs to satisfy specific requirements before it can be loaded successfully.
+     *
+     * @param file
+     * @return
+     */
     @PostMapping("/upload")
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
         try {

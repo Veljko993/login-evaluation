@@ -3,6 +3,9 @@ package eco.login.evaluation.model;
 import lombok.Builder;
 import lombok.Data;
 
+/**
+ * All string Combine data, used for reading from CSV
+ */
 @Builder
 @Data
 public class CombineDataCSV {
