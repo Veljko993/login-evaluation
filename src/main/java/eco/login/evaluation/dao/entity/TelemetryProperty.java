@@ -1,24 +1,25 @@
 package eco.login.evaluation.dao.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import jakarta.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Timestamp;
 
 /**
- *
  * @author vantonijevic
- *
+ * <p>
  * Entity used for storing *one* telemetry property.
  */
 @Entity
 @Table(name = "TLMTRY_PROP")
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class TelemetryProperty implements Serializable {
     @Id
@@ -39,7 +40,7 @@ public class TelemetryProperty implements Serializable {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "TLMTRY_PROP_VALU_TS")
-    private Date telemetryPropertyValueDate;
+    private Timestamp telemetryPropertyValueDate;
 
     @Column(name = "TLMTRY_PROP_VALU_FG")
     private Boolean telemetryPropertyValueFlag;

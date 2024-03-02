@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
  * Repository for {@link Vehicle} entity
  */
 @Repository
-public interface VehicleDao extends CrudRepository<Vehicle, Long> {
+public interface VehicleDao extends CrudRepository<Vehicle, String> {
 }

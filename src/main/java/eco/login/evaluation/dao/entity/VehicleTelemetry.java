@@ -1,21 +1,24 @@
 package eco.login.evaluation.dao.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author vantonijevic
- *
+ * <p>
  * Entity used for storing telemetry data. May be modified in the future.
  */
 @Entity
 @Table(name = "VHCL_TLMTRY")
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Builder
 public class VehicleTelemetry implements Serializable {
@@ -30,5 +33,6 @@ public class VehicleTelemetry implements Serializable {
     @JsonIgnore
     private Vehicle vehicle;
 
-    //TODO Think if you will store these properties directly or in prop table: DateTime, GPS long, GPS lat, total work hours
+    @OneToMany(mappedBy = "vehicleTelemetry", cascade = CascadeType.ALL)
+    private List<TelemetryProperty> telemetryProperties;
 }
