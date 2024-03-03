@@ -10,6 +10,7 @@ import eco.login.evaluation.exception.UnknownOperationException;
 import eco.login.evaluation.exception.ValidationException;
 import eco.login.evaluation.model.Filter;
 import eco.login.evaluation.model.PropertyFilter;
+import eco.login.evaluation.model.VehicleData;
 import eco.login.evaluation.service.DataReadingService;
 import eco.login.evaluation.service.PropertyDefinitionService;
 import lombok.extern.slf4j.Slf4j;
@@ -36,12 +37,15 @@ public class DataReadingServiceImpl implements DataReadingService {
     public String getVehicleData(List<Filter> validFilters) {
         String query = convertToQuery(validFilters);
         List<?> vehicleTelemetryKeys = vehicleDataDao.executeNativeQuery(query);
-        //TODO Fetch all data for vehicle telemetry keys above.
         Iterable<VehicleTelemetry> vehicleTelemetries = vehicleTelemetry.findAllById((Iterable<Long>) vehicleTelemetryKeys);
+        List<VehicleData> vehicleData = new ArrayList<>();
+        for(VehicleTelemetry telemetry: vehicleTelemetries){
+            vehicleData.add(VehicleData.convert(telemetry));
+        }
         ObjectMapper mapper = new ObjectMapper();
         String value;
         try {
-           value =  mapper.writeValueAsString(vehicleTelemetries);
+           value =  mapper.writeValueAsString(vehicleData);
         } catch (JsonProcessingException e) {
             value = "ERROR: " + e;
         }

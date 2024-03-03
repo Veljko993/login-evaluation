@@ -50,7 +50,7 @@ public class ParseUtil {
             log.debug("Parsing: " + text + " to true");
             result = Boolean.TRUE;
         } else {
-            throw new ValidationException("Unsupported value for boolean. Allowed values (on, off, actve, inactive, 1, 0, true, false, na). Actual: " + text);
+            throw new ValidationException("Unsupported value for boolean. Allowed values (on, off, active, inactive, 1, 0, true, false, na). Actual: " + text);
         }
         return result;
     }

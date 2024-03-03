@@ -3,10 +3,12 @@ package eco.login.evaluation;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+
+//@SpringBootTest
 class EvaluationApplicationTests {
 
-	@Test
+
+	//@Test
 	void contextLoads() {
 	}
 

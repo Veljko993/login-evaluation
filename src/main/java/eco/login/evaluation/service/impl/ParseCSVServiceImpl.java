@@ -25,10 +25,6 @@ import static eco.login.evaluation.common.CSVHeaderConst.*;
 public class ParseCSVServiceImpl implements ParseCSVService {
     @Override
     public List<TractorData> parseTractorData(List<TractorDataCSV> csvData) {
-        /*return csvData.parallelStream()
-                .map(TractorData::convert)
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());*/
         List<TractorData> data = new ArrayList<>();
         for (TractorDataCSV csv : csvData) {
             TractorData converted = TractorData.convert(csv);

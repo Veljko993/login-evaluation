@@ -1,4 +1,4 @@
-package eco.login.evaluation;
+package eco.login.evaluation.controller;
 
 import eco.login.evaluation.exception.ValidationException;
 import eco.login.evaluation.model.Filter;

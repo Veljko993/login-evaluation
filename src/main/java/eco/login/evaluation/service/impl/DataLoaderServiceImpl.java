@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class DataLoaderServiceImpl implements DataLoaderService {
@@ -34,7 +35,7 @@ public class DataLoaderServiceImpl implements DataLoaderService {
     public int loadCSVFile(MultipartFile file) throws ValidationException {
         int loadedRows = 0;
         try {
-            if (file.getOriginalFilename().startsWith("LD_C")) {
+            if (Objects.requireNonNull(file.getOriginalFilename()).startsWith("LD_C")) {
                 loadedRows = processCombineData(file);
             } else if (file.getOriginalFilename().startsWith("LD_A")) {
                 loadedRows = processTractorData(file);
@@ -42,7 +43,8 @@ public class DataLoaderServiceImpl implements DataLoaderService {
                 throw new ValidationException("Unsupported file name. It should start with either LD_C or LD_A", HttpStatus.BAD_REQUEST);
             }
         } catch (FileReadingException e) {
-            throw new RuntimeException(e);
+            //TODO handle this exception
+            throw new ValidationException("Error reading file: " + e.getMessage(),HttpStatus.BAD_REQUEST, e);
         }
         return loadedRows;
     }

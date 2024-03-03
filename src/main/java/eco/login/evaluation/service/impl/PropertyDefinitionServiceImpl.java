@@ -5,6 +5,7 @@ import eco.login.evaluation.dao.entity.TelemetryProperty;
 import eco.login.evaluation.dao.entity.TelemetryPropertyDefinition;
 import eco.login.evaluation.dao.entity.VehicleTelemetry;
 import eco.login.evaluation.dao.repository.TelemetryPropertyDefinitionDao;
+import eco.login.evaluation.exception.ValidationException;
 import eco.login.evaluation.model.PropertyFilter;
 import eco.login.evaluation.service.PropertyDefinitionService;
 import jakarta.annotation.PostConstruct;
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,24 +43,39 @@ public class PropertyDefinitionServiceImpl implements PropertyDefinitionService 
     @Override
     public void addTextProperty(List<TelemetryProperty> properties, String propertyName, String value, VehicleTelemetry telemetry) {
         if (value != null) {
-            properties.add(TelemetryProperty.builder()
-                    .telemetryPropertyDefinition(propertyDefinitions.get(propertyName))
-                    .telemetryPropertyValueText(value)
-                    .vehicleTelemetry(telemetry)
-                    .build());
+            try {
+                TelemetryProperty property = buildProperty(propertyName, telemetry);
+                property.setTelemetryPropertyValueText(value);
+                properties.add(property);
+            } catch (ValidationException e) {
+                log.debug("Skipping. Reason: " + e.getMessage());
+            }
         } else {
             log.debug("Skipping empty property: " + propertyName);
         }
     }
 
+    private TelemetryProperty buildProperty(String propertyName, VehicleTelemetry telemetry) throws ValidationException {
+        TelemetryPropertyDefinition propertyDefinition = propertyDefinitions.get(propertyName);
+        if (propertyDefinition == null) {
+            throw new ValidationException("Non-existing property");
+        }
+        return TelemetryProperty.builder()
+                .telemetryPropertyDefinition(propertyDefinition)
+                .vehicleTelemetry(telemetry)
+                .build();
+    }
+
     @Override
     public void addDateProperty(List<TelemetryProperty> properties, String propertyName, Timestamp value, VehicleTelemetry telemetry) {
         if (value != null) {
-            properties.add(TelemetryProperty.builder()
-                    .telemetryPropertyDefinition(propertyDefinitions.get(propertyName))
-                    .telemetryPropertyValueDate(value)
-                    .vehicleTelemetry(telemetry)
-                    .build());
+            try {
+                TelemetryProperty property = buildProperty(propertyName, telemetry);
+                property.setTelemetryPropertyValueDate(value);
+                properties.add(property);
+            } catch (ValidationException e) {
+                log.debug("Skipping. Reason: " + e.getMessage());
+            }
         } else {
             log.debug("Skipping empty property: " + propertyName);
         }
@@ -69,11 +84,13 @@ public class PropertyDefinitionServiceImpl implements PropertyDefinitionService 
     @Override
     public void addIntProperty(List<TelemetryProperty> properties, String propertyName, Integer value, VehicleTelemetry telemetry) {
         if (value != null) {
-            properties.add(TelemetryProperty.builder()
-                    .telemetryPropertyDefinition(propertyDefinitions.get(propertyName))
-                    .telemetryPropertyValueInteger(value)
-                    .vehicleTelemetry(telemetry)
-                    .build());
+            try {
+                TelemetryProperty property = buildProperty(propertyName, telemetry);
+                property.setTelemetryPropertyValueInteger(value);
+                properties.add(property);
+            } catch (ValidationException e) {
+                log.debug("Skipping. Reason: " + e.getMessage());
+            }
         } else {
             log.debug("Skipping empty property: " + propertyName);
         }
@@ -82,11 +99,13 @@ public class PropertyDefinitionServiceImpl implements PropertyDefinitionService 
     @Override
     public void addBooleanProperty(List<TelemetryProperty> properties, String propertyName, Boolean value, VehicleTelemetry telemetry) {
         if (value != null) {
-            properties.add(TelemetryProperty.builder()
-                    .telemetryPropertyDefinition(propertyDefinitions.get(propertyName))
-                    .telemetryPropertyValueFlag(value)
-                    .vehicleTelemetry(telemetry)
-                    .build());
+            try {
+                TelemetryProperty property = buildProperty(propertyName, telemetry);
+                property.setTelemetryPropertyValueFlag(value);
+                properties.add(property);
+            } catch (ValidationException e) {
+                log.debug("Skipping. Reason: " + e.getMessage());
+            }
         } else {
             log.debug("Skipping empty property: " + propertyName);
         }
@@ -95,11 +114,13 @@ public class PropertyDefinitionServiceImpl implements PropertyDefinitionService 
     @Override
     public void addDoubleProperty(List<TelemetryProperty> properties, String propertyName, Double value, VehicleTelemetry telemetry) {
         if (value != null) {
-            properties.add(TelemetryProperty.builder()
-                    .telemetryPropertyDefinition(propertyDefinitions.get(propertyName))
-                    .telemetryPropertyValueDecimal(value)
-                    .vehicleTelemetry(telemetry)
-                    .build());
+            try {
+                TelemetryProperty property = buildProperty(propertyName, telemetry);
+                property.setTelemetryPropertyValueDecimal(value);
+                properties.add(property);
+            } catch (ValidationException e) {
+                log.debug("Skipping. Reason: " + e.getMessage());
+            }
         } else {
             log.debug("Skipping empty property: " + propertyName);
         }
@@ -120,10 +141,13 @@ public class PropertyDefinitionServiceImpl implements PropertyDefinitionService 
     @Override
     public PropertyFilter getProperty(String propertyName) {
         TelemetryPropertyDefinition propertyDefinition = propertyDefinitions.get(propertyName);
-        return propertyDefinition == null ? null : PropertyFilter.copy(propertyDefinition);    }
+        return propertyDefinition == null ? null : PropertyFilter.copy(propertyDefinition);
+    }
 
+    /**
+     * As DB is in memory this needs to be done every time on startup. Otherwise, it would be done once and that's it.
+     */
     private void initializePropDefn() {
-        List<TelemetryPropertyDefinition> props = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/propertiesDefinition.csv"))) {
             String line;
             while ((line = br.readLine()) != null && !line.isEmpty()) {
@@ -133,6 +157,5 @@ public class PropertyDefinitionServiceImpl implements PropertyDefinitionService 
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        //propertyDefinitionDao.saveAll(props);
     }
 }

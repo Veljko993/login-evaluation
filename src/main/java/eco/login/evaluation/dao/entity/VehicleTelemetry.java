@@ -28,9 +28,8 @@ public class VehicleTelemetry implements Serializable {
     @Column(name = "VHCL_TLMTRY_KY")
     private Long vehicleTelemetryKey;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "VHCL_KY")
-    @JsonIgnore
     private Vehicle vehicle;
 
     @OneToMany(mappedBy = "vehicleTelemetry", cascade = CascadeType.ALL)
