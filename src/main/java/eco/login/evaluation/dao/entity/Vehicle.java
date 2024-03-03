@@ -1,5 +1,6 @@
 package eco.login.evaluation.dao.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import eco.login.evaluation.common.VehicleType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -33,6 +34,7 @@ public class Vehicle implements Serializable {
     private VehicleType vehicleType;
 
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<VehicleTelemetry> vehicleTelemetries;
 
 }
