@@ -26,6 +26,21 @@ public class ValidationServiceImpl implements ValidationService {
         this.definitionService = definitionService;
     }
 
+    private static boolean validateOperation(Filter filter, TelemetryPropertyType propertyType) {
+        boolean valid = true;
+        try {
+            Operation operation = Operation.parse(filter.getOperation());
+            if (operation != Operation.EQUALS && !operation.isSupported(propertyType)) {
+                log.error("Validation error: Operation is not supported for the provided field. Field: {}, operation: {}", filter.getField(), filter.getOperation());
+                valid = false;
+            }
+        } catch (UnknownOperationException e) {
+            log.error("Validation error: Operation invalid. Value: " + filter.getOperation());
+            valid = false;
+        }
+        return valid;
+    }
+
     @Override
     public void validateFile(MultipartFile file) throws ValidationException {
         if (!Objects.requireNonNull(file.getOriginalFilename()).toLowerCase().endsWith(".csv")) {
@@ -40,7 +55,7 @@ public class ValidationServiceImpl implements ValidationService {
         }
         List<Filter> validFilters = new ArrayList<>();
         for (Filter filter : filters) {
-            if(validateFilter(filter)){
+            if (validateFilter(filter)) {
                 validFilters.add(filter);
             }
         }
@@ -54,21 +69,6 @@ public class ValidationServiceImpl implements ValidationService {
             log.error("Validation error: Field doesn't exist. Value: " + filter.getField());
         } else {
             valid = validateOperation(filter, propertyType);
-        }
-        return valid;
-    }
-
-    private static boolean validateOperation(Filter filter, TelemetryPropertyType propertyType) {
-        boolean valid = true;
-        try {
-            Operation operation = Operation.parse(filter.getOperation());
-            if (operation != Operation.EQUALS && !operation.isSupported(propertyType)) {
-                log.error("Validation error: Operation is not supported for the provided field. Field: {}, operation: {}", filter.getField(), filter.getOperation());
-                valid = false;
-            }
-        } catch (UnknownOperationException e) {
-            log.error("Validation error: Operation invalid. Value: " + filter.getOperation());
-            valid = false;
         }
         return valid;
     }

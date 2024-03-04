@@ -37,4 +37,12 @@ public class Vehicle implements Serializable {
     @JsonIgnore
     private List<VehicleTelemetry> vehicleTelemetries;
 
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "vehicleKey='" + vehicleKey + '\'' +
+                ", vehicleType=" + vehicleType +
+                ", vehicleTelemetries=omitted due to circularity" +
+                '}';
+    }
 }

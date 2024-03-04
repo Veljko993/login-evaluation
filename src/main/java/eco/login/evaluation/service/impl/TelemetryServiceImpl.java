@@ -11,6 +11,7 @@ import eco.login.evaluation.model.TractorData;
 import eco.login.evaluation.service.PropertyDefinitionService;
 import eco.login.evaluation.service.TelemetryService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,9 @@ public class TelemetryServiceImpl implements TelemetryService {
 
     @Override
     public int saveTractorData(List<TractorData> parsedData) throws ValidationException {
+        if (CollectionUtils.isEmpty(parsedData)) {
+            return 0;
+        }
         String serialNum = parsedData.get(0).getSerialNumber();
         Vehicle vehicle = vehicleDao.findById(serialNum).orElse(new Vehicle(serialNum, VehicleType.TRACTOR, new ArrayList<>()));
         int counter = 0;
@@ -74,6 +78,9 @@ public class TelemetryServiceImpl implements TelemetryService {
 
     @Override
     public int saveCombineData(List<CombineData> parsedData) throws ValidationException {
+        if (CollectionUtils.isEmpty(parsedData)) {
+            return 0;
+        }
         String serialNum = parsedData.get(0).getSerialNumber();
         Vehicle vehicle = vehicleDao.findById(serialNum).orElse(new Vehicle(serialNum, VehicleType.COMBINE, new ArrayList<>()));
         int counter = 0;

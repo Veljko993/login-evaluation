@@ -63,6 +63,7 @@ public interface PropertyDefinitionService {
     void addDoubleProperty(List<TelemetryProperty> properties, String propertyName, Double value, VehicleTelemetry telemetry);
 
     TelemetryPropertyType getPropertyType(String propertyName);
+
     Integer getPropertyKy(String propertyName);
 
     PropertyFilter getProperty(String propertyName);

@@ -14,7 +14,6 @@ import eco.login.evaluation.model.VehicleData;
 import eco.login.evaluation.service.DataReadingService;
 import eco.login.evaluation.service.PropertyDefinitionService;
 import lombok.extern.slf4j.Slf4j;
-import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -39,13 +38,13 @@ public class DataReadingServiceImpl implements DataReadingService {
         List<?> vehicleTelemetryKeys = vehicleDataDao.executeNativeQuery(query);
         Iterable<VehicleTelemetry> vehicleTelemetries = vehicleTelemetry.findAllById((Iterable<Long>) vehicleTelemetryKeys);
         List<VehicleData> vehicleData = new ArrayList<>();
-        for(VehicleTelemetry telemetry: vehicleTelemetries){
+        for (VehicleTelemetry telemetry : vehicleTelemetries) {
             vehicleData.add(VehicleData.convert(telemetry));
         }
         ObjectMapper mapper = new ObjectMapper();
         String value;
         try {
-           value =  mapper.writeValueAsString(vehicleData);
+            value = mapper.writeValueAsString(vehicleData);
         } catch (JsonProcessingException e) {
             value = "ERROR: " + e;
         }
@@ -93,7 +92,7 @@ public class DataReadingServiceImpl implements DataReadingService {
             }
         }
         String queryPart = "";
-        switch (filter.getOperation()){
+        switch (filter.getOperation()) {
             case EQUALS -> queryPart = field + "=" + value;
             case LESS_THAN -> queryPart = field + "<" + value;
             case GREATER_THAN -> queryPart = field + ">" + value;
