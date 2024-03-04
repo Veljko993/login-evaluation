@@ -1,9 +1,11 @@
 package eco.login.evaluation.service.impl;
 
+import eco.login.evaluation.common.TelemetryPropertyType;
 import eco.login.evaluation.dao.entity.TelemetryProperty;
 import eco.login.evaluation.dao.entity.TelemetryPropertyDefinition;
 import eco.login.evaluation.dao.entity.VehicleTelemetry;
 import eco.login.evaluation.dao.repository.TelemetryPropertyDefinitionDao;
+import eco.login.evaluation.model.PropertyFilter;
 import eco.login.evaluation.service.PropertyDefinitionService;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
@@ -102,6 +104,23 @@ public class PropertyDefinitionServiceImpl implements PropertyDefinitionService 
             log.debug("Skipping empty property: " + propertyName);
         }
     }
+
+    @Override
+    public TelemetryPropertyType getPropertyType(String propertyName) {
+        TelemetryPropertyDefinition propertyDefinition = propertyDefinitions.get(propertyName);
+        return propertyDefinition == null ? null : propertyDefinition.getTelemetryPropertyType();
+    }
+
+    @Override
+    public Integer getPropertyKy(String propertyName) {
+        TelemetryPropertyDefinition propertyDefinition = propertyDefinitions.get(propertyName);
+        return propertyDefinition == null ? null : propertyDefinition.getTelemetryPropertyDefinitionKey();
+    }
+
+    @Override
+    public PropertyFilter getProperty(String propertyName) {
+        TelemetryPropertyDefinition propertyDefinition = propertyDefinitions.get(propertyName);
+        return propertyDefinition == null ? null : PropertyFilter.copy(propertyDefinition);    }
 
     private void initializePropDefn() {
         List<TelemetryPropertyDefinition> props = new ArrayList<>();

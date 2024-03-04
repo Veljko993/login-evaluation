@@ -4,6 +4,7 @@ import eco.login.evaluation.exception.ValidationException;
 import eco.login.evaluation.service.DataLoaderService;
 import eco.login.evaluation.service.ValidationService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,7 @@ public class DataLoaderController {
     private final ValidationService validationService;
     private final DataLoaderService dataLoaderService;
 
+    @Autowired
     public DataLoaderController(ValidationService validationService, DataLoaderService dataLoaderService) {
         this.validationService = validationService;
         this.dataLoaderService = dataLoaderService;

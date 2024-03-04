@@ -29,6 +29,9 @@ public enum Operation {
     }
 
     public static Operation parse(String operationName) throws UnknownOperationException {
+        if (operationName == null) {
+            return EQUALS;
+        }
         for (Operation op : Operation.values()) {
             if (op.getName().equalsIgnoreCase(operationName)) {
                 return op;

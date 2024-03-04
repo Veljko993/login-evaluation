@@ -56,4 +56,18 @@ public class TelemetryProperty implements Serializable {
     @JoinColumn(name = "TLMTRY_KY")
     @JsonIgnore
     private VehicleTelemetry vehicleTelemetry;
+
+
+    public String getValueOf(){
+        String value;
+        switch (telemetryPropertyDefinition.getTelemetryPropertyType()) {
+            case TEXT -> value = telemetryPropertyValueText;
+            case DATE -> value = String.valueOf(telemetryPropertyValueDate);
+            case INT -> value = String.valueOf(telemetryPropertyValueInteger);
+            case DOUBLE -> value = String.valueOf(telemetryPropertyValueDecimal);
+            case BOOLEAN -> value = String.valueOf(telemetryPropertyValueFlag);
+            default -> value = "";
+        }
+        return value;
+    }
 }

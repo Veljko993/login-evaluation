@@ -8,5 +8,5 @@ import java.io.Serializable;
  * Enum describing property types
  */
 public enum TelemetryPropertyType implements Serializable {
-    TEXT, DATE, INT, DOUBLE, BOOLEAN;
+    TEXT, DATE, INT, DOUBLE, BOOLEAN
 }

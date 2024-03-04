@@ -1,7 +1,9 @@
 package eco.login.evaluation.service;
 
+import eco.login.evaluation.common.TelemetryPropertyType;
 import eco.login.evaluation.dao.entity.TelemetryProperty;
 import eco.login.evaluation.dao.entity.VehicleTelemetry;
+import eco.login.evaluation.model.PropertyFilter;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -59,4 +61,10 @@ public interface PropertyDefinitionService {
      * @param telemetry    - parent object
      */
     void addDoubleProperty(List<TelemetryProperty> properties, String propertyName, Double value, VehicleTelemetry telemetry);
+
+    TelemetryPropertyType getPropertyType(String propertyName);
+    Integer getPropertyKy(String propertyName);
+
+    PropertyFilter getProperty(String propertyName);
+
 }
