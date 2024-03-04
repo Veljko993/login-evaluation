@@ -1,20 +1,10 @@
 package eco.login.evaluation.service.impl;
 
-import static eco.login.evaluation.common.PropertyNamesConst.*;
-import static eco.login.evaluation.common.TelemetryPropertyType.*;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
-import eco.login.evaluation.common.PropertyNamesConst;
-import eco.login.evaluation.common.TelemetryPropertyType;
 import eco.login.evaluation.dao.entity.TelemetryProperty;
 import eco.login.evaluation.dao.entity.TelemetryPropertyDefinition;
 import eco.login.evaluation.dao.entity.VehicleTelemetry;
 import eco.login.evaluation.dao.repository.TelemetryPropertyDefinitionDao;
-import eco.login.evaluation.dao.repository.VehicleDao;
 import eco.login.evaluation.model.PropertyFilter;
-import eco.login.evaluation.service.PropertyDefinitionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,6 +15,12 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import static eco.login.evaluation.common.PropertyNamesConst.*;
+import static eco.login.evaluation.common.TelemetryPropertyType.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
 @ExtendWith(MockitoExtension.class)
 public class PropertyDefinitionServiceImplTest {
 
@@ -33,6 +29,7 @@ public class PropertyDefinitionServiceImplTest {
     private TelemetryPropertyDefinitionDao propertyDefinitionDao;
 
     private TelemetryPropertyDefinition serialNumberProp;
+
     @BeforeEach
     public void setUp() {
         service = new PropertyDefinitionServiceImpl(propertyDefinitionDao);
@@ -46,16 +43,16 @@ public class PropertyDefinitionServiceImplTest {
         List<TelemetryPropertyDefinition> propDefnList = new ArrayList<>();
         serialNumberProp = new TelemetryPropertyDefinition(1, SERIAL_NUMBER, TEXT);
         propDefnList.add(serialNumberProp);
-        propDefnList.add(new TelemetryPropertyDefinition(2,TIMESTAMP, DATE));
-        propDefnList.add(new TelemetryPropertyDefinition(3,ENGINE_SPEED, INT));
-        propDefnList.add(new TelemetryPropertyDefinition(4,CHOPPER, BOOLEAN));
-        propDefnList.add(new TelemetryPropertyDefinition(5,TOTAL_WORKING_HOURS, DOUBLE));
+        propDefnList.add(new TelemetryPropertyDefinition(2, TIMESTAMP, DATE));
+        propDefnList.add(new TelemetryPropertyDefinition(3, ENGINE_SPEED, INT));
+        propDefnList.add(new TelemetryPropertyDefinition(4, CHOPPER, BOOLEAN));
+        propDefnList.add(new TelemetryPropertyDefinition(5, TOTAL_WORKING_HOURS, DOUBLE));
         return propDefnList;
     }
 
 
     @Test
-    public void addTextPropertyTest(){
+    public void addTextPropertyTest() {
         List<TelemetryProperty> properties = new ArrayList<>();
         VehicleTelemetry vehicleTelemetry = new VehicleTelemetry();
         String serialNumber = "A003";
@@ -71,7 +68,7 @@ public class PropertyDefinitionServiceImplTest {
     }
 
     @Test
-    public void addDatePropertyTest(){
+    public void addDatePropertyTest() {
         List<TelemetryProperty> properties = new ArrayList<>();
         VehicleTelemetry vehicleTelemetry = new VehicleTelemetry();
         Timestamp timestamp = new Timestamp(0);
@@ -87,7 +84,7 @@ public class PropertyDefinitionServiceImplTest {
     }
 
     @Test
-    public void addIntPropertyTest(){
+    public void addIntPropertyTest() {
         List<TelemetryProperty> properties = new ArrayList<>();
         VehicleTelemetry vehicleTelemetry = new VehicleTelemetry();
         int engineSpeed = 100;
@@ -103,7 +100,7 @@ public class PropertyDefinitionServiceImplTest {
     }
 
     @Test
-    public void addDoublePropertyTest(){
+    public void addDoublePropertyTest() {
         List<TelemetryProperty> properties = new ArrayList<>();
         VehicleTelemetry vehicleTelemetry = new VehicleTelemetry();
         Double totWorkHrs = 1234.56;
@@ -119,7 +116,7 @@ public class PropertyDefinitionServiceImplTest {
     }
 
     @Test
-    public void addBooleanPropertyTest(){
+    public void addBooleanPropertyTest() {
         List<TelemetryProperty> properties = new ArrayList<>();
         VehicleTelemetry vehicleTelemetry = new VehicleTelemetry();
         service.addBooleanProperty(properties, CHOPPER, true, vehicleTelemetry);
@@ -135,19 +132,19 @@ public class PropertyDefinitionServiceImplTest {
 
 
     @Test
-    public void testGetPropType(){
+    public void testGetPropType() {
         assertEquals(serialNumberProp.getTelemetryPropertyType(), service.getPropertyType(SERIAL_NUMBER));
         assertNull(service.getPropertyType("MyWorkingHours"));
     }
 
     @Test
-    public void testGetPropKy(){
+    public void testGetPropKy() {
         assertEquals(serialNumberProp.getTelemetryPropertyDefinitionKey(), service.getPropertyKy(SERIAL_NUMBER));
         assertNull(service.getPropertyKy("MyWorkingHours"));
     }
 
     @Test
-    public void testGetProp(){
+    public void testGetProp() {
         PropertyFilter property = service.getProperty(SERIAL_NUMBER);
         assertEquals(serialNumberProp.getTelemetryPropertyDefinitionKey(), property.getPropertyKy());
         assertEquals(serialNumberProp.getTelemetryPropertyName(), property.getPropertyName());

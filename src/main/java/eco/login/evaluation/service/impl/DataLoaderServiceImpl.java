@@ -44,7 +44,7 @@ public class DataLoaderServiceImpl implements DataLoaderService {
             }
         } catch (FileReadingException e) {
             //TODO handle this exception
-            throw new ValidationException("Error reading file: " + e.getMessage(),HttpStatus.BAD_REQUEST, e);
+            throw new ValidationException("Error reading file: " + e.getMessage(), HttpStatus.BAD_REQUEST, e);
         }
         return loadedRows;
     }

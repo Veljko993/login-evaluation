@@ -4,14 +4,9 @@ import eco.login.evaluation.common.TelemetryPropertyType;
 import eco.login.evaluation.exception.ValidationException;
 import eco.login.evaluation.model.Filter;
 import eco.login.evaluation.service.PropertyDefinitionService;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
-
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
@@ -20,36 +15,32 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.Mockito.when;
+
 @ExtendWith(MockitoExtension.class)
 public class ValidationServiceImplTest {
 
-    @Mock private PropertyDefinitionService definitionService;
+    @Mock
+    private PropertyDefinitionService definitionService;
     private ValidationServiceImpl service;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         service = new ValidationServiceImpl(definitionService);
     }
 
 
     @Test
     public void validateFileCorrectNameTest() throws ValidationException {
-        MultipartFile file = new MockMultipartFile("correct.csv","correct.csv",null,  new byte[1]);
+        MultipartFile file = new MockMultipartFile("correct.csv", "correct.csv", null, new byte[1]);
         service.validateFile(file);
     }
+
     @Test
     public void validateFileNullTest() {
-        MultipartFile file = new MockMultipartFile("badfile.csv",null,null, new byte[1]);
-        try {
-            service.validateFile(file);
-            fail("Exception expected!");
-        } catch (ValidationException e) {
-            assertEquals(HttpStatus.BAD_REQUEST, e.getStatus());
-        }
-    }
-    @Test
-    public void validateFileTextTest() {
-        MultipartFile file = new MockMultipartFile("incorrect.txt","incorrect.txt",null, new byte[1]);
+        MultipartFile file = new MockMultipartFile("badfile.csv", null, null, new byte[1]);
         try {
             service.validateFile(file);
             fail("Exception expected!");
@@ -59,7 +50,18 @@ public class ValidationServiceImplTest {
     }
 
     @Test
-    public void validateFilterParamValidation(){
+    public void validateFileTextTest() {
+        MultipartFile file = new MockMultipartFile("incorrect.txt", "incorrect.txt", null, new byte[1]);
+        try {
+            service.validateFile(file);
+            fail("Exception expected!");
+        } catch (ValidationException e) {
+            assertEquals(HttpStatus.BAD_REQUEST, e.getStatus());
+        }
+    }
+
+    @Test
+    public void validateFilterParamValidation() {
         try {
             service.validateFilters(null);
             fail("Exception expected!");

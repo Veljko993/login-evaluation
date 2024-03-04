@@ -13,13 +13,16 @@ public interface TelemetryService {
 
     /**
      * Processing Tractor telemetry data
+     *
      * @param parsedData
      * @return number of successfully added rows
      * @throws ValidationException
      */
     int saveTractorData(List<TractorData> parsedData) throws ValidationException;
+
     /**
      * Processing Combine telemetry data
+     *
      * @param parsedData
      * @return number of successfully added rows
      * @throws ValidationException

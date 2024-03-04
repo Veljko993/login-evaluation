@@ -30,6 +30,7 @@ public enum Operation {
 
     /**
      * Parses the String into Operation ignoring the case of the operation name provided, default value is EQUALS.
+     *
      * @param operationName
      * @return
      * @throws UnknownOperationException

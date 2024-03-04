@@ -58,7 +58,7 @@ public class TelemetryProperty implements Serializable {
     private VehicleTelemetry vehicleTelemetry;
 
 
-    public String getValueOf(){
+    public String getValueOf() {
         String value;
         switch (telemetryPropertyDefinition.getTelemetryPropertyType()) {
             case TEXT -> value = telemetryPropertyValueText;

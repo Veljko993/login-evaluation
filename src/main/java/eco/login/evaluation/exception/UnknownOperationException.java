@@ -1,4 +1,5 @@
 package eco.login.evaluation.exception;
+
 /**
  * Custom wrapper exception thrown with all errors occurred during the validation of the operation related input
  */

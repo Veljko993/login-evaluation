@@ -1,6 +1,5 @@
 package eco.login.evaluation.service.impl;
 
-import eco.login.evaluation.dao.repository.VehicleDao;
 import eco.login.evaluation.exception.FileReadingException;
 import eco.login.evaluation.exception.ValidationException;
 import eco.login.evaluation.model.CombineData;
@@ -9,7 +8,6 @@ import eco.login.evaluation.model.TractorData;
 import eco.login.evaluation.model.TractorDataCSV;
 import eco.login.evaluation.service.DataLoaderService;
 import eco.login.evaluation.service.ParseCSVService;
-import eco.login.evaluation.service.PropertyDefinitionService;
 import eco.login.evaluation.service.TelemetryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,6 +36,7 @@ public class DataLoaderServiceImplTest {
     private DataLoaderService service;
 
     private MultipartFile file;
+
     @BeforeEach
     public void setUp() {
         service = new DataLoaderServiceImpl(parseService, telemetryService);
@@ -86,9 +85,6 @@ public class DataLoaderServiceImplTest {
             assertEquals(HttpStatus.BAD_REQUEST, e.getStatus());
         }
     }
-
-
-
 
 
 }

@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static eco.login.evaluation.common.PropertyNamesConst.*;
@@ -31,7 +30,7 @@ public class TelemetryServiceImpl implements TelemetryService {
 
     @Override
     public int saveTractorData(List<TractorData> parsedData) throws ValidationException {
-        if(CollectionUtils.isEmpty(parsedData)){
+        if (CollectionUtils.isEmpty(parsedData)) {
             return 0;
         }
         String serialNum = parsedData.get(0).getSerialNumber();
@@ -79,7 +78,7 @@ public class TelemetryServiceImpl implements TelemetryService {
 
     @Override
     public int saveCombineData(List<CombineData> parsedData) throws ValidationException {
-        if(CollectionUtils.isEmpty(parsedData)){
+        if (CollectionUtils.isEmpty(parsedData)) {
             return 0;
         }
         String serialNum = parsedData.get(0).getSerialNumber();
